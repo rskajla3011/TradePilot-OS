@@ -1,0 +1,93 @@
+###############################################################################
+# TradePilot OS
+# Project Manifest
+# Version: 1.0
+###############################################################################
+
+project:
+  name: TradePilot OS
+  code_name: Falcon
+  description: Enterprise AI-Powered Trading & Investment Operating System
+  version: 0.1.0a1
+  release_channel: Alpha
+  status: Development
+
+organization:
+  owner: Ravi Kajla
+  company: Personal Project
+
+repository:
+  root_package: tradepilot
+  src_directory: src
+  repository_name: TradePilot-OS
+  default_branch: main
+
+python:
+  version: "3.13"
+  minimum_version: "3.13"
+
+architecture:
+  pattern: Clean Architecture
+  language: Python
+  ui_framework: PySide6
+  package_layout: src
+  dependency_injection: true
+  event_driven: true
+  plugin_architecture: true
+
+quality:
+  formatter: Black
+  linter: Ruff
+  type_checker: MyPy
+  testing: pytest
+  coverage_target: 90
+
+version_control:
+  vcs: Git
+  branching:
+    - main
+    - develop
+    - feature/*
+    - release/*
+    - hotfix/*
+
+documentation:
+  changelog: CHANGELOG.md
+  readme: README.md
+  architecture: docs/architecture
+  adr: docs/adr
+  blueprint: blueprint/TradePilot_Blueprint.xlsx
+
+directories:
+  source: src
+  tests: tests
+  documentation: docs
+  blueprint: blueprint
+  devtools: devtools
+  shared: shared
+  scripts: scripts
+  logs: logs
+  temp: temp
+
+markets:
+  country: India
+  exchanges:
+    - NSE
+    - BSE
+    - MCX
+    - NCDEX
+
+supported_platforms:
+  - Windows
+
+release:
+  semantic_versioning: true
+  build_number: 1
+
+security:
+  secrets_in_git: false
+  signed_releases: false
+
+roadmap:
+  current_sprint: DEV-001
+  current_phase: Repository Foundation
