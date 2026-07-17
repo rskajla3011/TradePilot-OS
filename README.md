@@ -1,149 +1,146 @@
 # TradePilot OS
 
-> Enterprise-grade AI-Powered Trading & Investment Operating System for
-> the Indian Financial Markets.
+> Professional Trading & Investment Platform for the Indian Financial Markets
 
-## Vision
+---
 
-TradePilot OS is a professional desktop trading platform designed for
-serious traders and investors.
+## Project Overview
 
-The objective is to build an enterprise-grade ecosystem that combines
-market analysis, portfolio management, strategy development, risk
-management, automation, and AI-assisted decision support into a single
-application.
+TradePilot OS is a modular desktop-first trading platform designed for professional traders and investors in the Indian financial markets.
 
-The project emphasizes clean architecture, maintainability, scalability,
-and long-term extensibility over short-term shortcuts.
+The platform focuses on:
 
-## Project Goals
+- Commodity Trading (MCX)
+- Equity Cash
+- Equity Futures
+- Index Futures
+- Portfolio Management
+- Risk Management
+- Market Analysis
+- Artificial Intelligence Assisted Trading
+- Paper Trading
+- Workspace Management
 
--   Enterprise-grade software architecture
--   Modular and scalable design
--   AI-assisted trading workflow
--   High-performance desktop application
--   Professional user experience
--   Comprehensive testing
--   Complete documentation
--   Long-term maintainability
+TradePilot OS follows enterprise software engineering practices with complete documentation, traceability, and modular architecture.
 
-## Target Markets
+---
 
-Initial release focuses exclusively on the Indian financial markets.
+# Vision
 
-Supported exchanges: - NSE - BSE - MCX - NCDEX
+Build the most reliable desktop trading operating system for Indian traders while maintaining an architecture that supports future expansion to web and mobile platforms.
 
-## Technology Stack
+---
 
-  Component        Technology
-  ---------------- --------------------
-  Language         Python 3.13
-  UI Framework     PySide6
-  Architecture     Clean Architecture
-  Package Layout   src
-  Type Checking    MyPy
-  Formatting       Black
-  Linting          Ruff
-  Testing          pytest
-  Logging          Loguru
-  Configuration    YAML
-  CLI              Typer
+# Current Development Phase
 
-## Repository Structure
+Engineering Foundation
 
-``` text
-TradePilot-OS/
-├── src/
-├── shared/
-├── devtools/
-├── docs/
-├── blueprint/
-├── tests/
-├── scripts/
-├── tools/
-└── ...
+Version: 0.1.0
+
+Status: Active Development
+
+---
+
+# Target Platforms
+
+Current
+
+- Windows Desktop
+
+Future
+
+- Web
+- Android
+- iOS
+
+---
+
+# Technology Stack
+
+| Technology | Status |
+|------------|--------|
+| Python 3.13 | Approved |
+| PySide6 | Approved |
+| SQLite | Approved |
+| SQLAlchemy | Planned |
+| Git | Approved |
+| GitHub | Approved |
+
+---
+
+# Repository Structure
+
+```
+TradePilotOS/
+
+docs/
+src/
+tests/
+config/
+database/
+resources/
+scripts/
 ```
 
-Application source code lives under:
+---
 
-``` text
-src/tradepilot/
+# Documentation
+
+Documentation is maintained under:
+
+```
+docs/
+
+01_Strategy
+02_Requirements
+03_Trading_Domain
+04_Architecture
+05_Implementation
+06_Standards
+07_ADR
+08_Project_Management
 ```
 
-## Architecture
+---
 
-The project follows a layered architecture.
+# Development Principles
 
-``` text
-Presentation
-Application
-Domain
-Infrastructure
+- Modular architecture
+- Enterprise documentation
+- High code quality
+- Traceability
+- Testability
+- Maintainability
+- Scalability
+
+---
+
+# Versioning
+
+Semantic Versioning is used.
+
+Example
+
+Major.Minor.Patch
+
+```
+1.0.0
 ```
 
-Core principles: - SOLID - Dependency Injection - Event-Driven Design -
-Modular Components - High Cohesion - Low Coupling
+---
 
-## Development Standards
+# License
 
--   Python 3.13+
--   Type hints for production code
--   Unit tests for business logic
--   Documentation for every feature
--   Architecture Decision Records (ADR)
--   Semantic Versioning
--   Git Feature Branch Workflow
+See LICENSE.
 
-## Repository Workflow
+---
 
-1.  Specification
-2.  Implementation
-3.  Unit Testing
-4.  Documentation
-5.  Blueprint Update
-6.  Review
-7.  Git Commit
+# Repository Status
 
-## Documentation
+Current Stage
 
-Documentation is organized under `docs/`.
+Engineering Foundation
 
-## Blueprint
+---
 
-Project blueprint is maintained under `blueprint/`.
-
-## Testing
-
--   Unit
--   Integration
--   Performance
-
-## Coding Standards
-
--   Black
--   Ruff
--   MyPy
--   EditorConfig
-
-## Versioning
-
-Semantic Versioning: - 0.1.0a1 - 0.1.0b1 - 0.1.0rc1 - 1.0.0
-
-## License
-
-MIT License during development.
-
-## Project Status
-
-Active Development
-
-Current milestone: DEV-001 -- Repository Foundation
-
-## Contributing
-
-Every change should include: - Tests - Documentation - Architecture
-compliance - Review before merge
-
-## Contact
-
-Project Owner: Ravi Kajla
+Copyright © TradePilot OS.
