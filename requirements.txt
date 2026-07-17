@@ -1,0 +1,22 @@
+###############################################################################
+# TradePilot OS
+#
+# Runtime Dependencies
+#
+# Packages are added only when first used by an implementation task.
+###############################################################################
+
+# GUI Framework
+PySide6>=6.9
+
+###############################################################################
+# Future Dependencies (Not Yet Enabled)
+#
+# SQLAlchemy
+# pandas
+# numpy
+# requests
+# websocket-client
+# cryptography
+# matplotlib
+###############################################################################

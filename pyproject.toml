@@ -1,0 +1,70 @@
+[build-system]
+requires = ["setuptools>=75.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "TradePilotOS"
+version = "0.1.0"
+description = "Professional Trading & Investment Platform for the Indian Financial Markets"
+readme = "README.md"
+requires-python = ">=3.13"
+
+authors = [
+    { name = "Ravi Kajla" }
+]
+
+keywords = [
+    "Trading",
+    "Investment",
+    "Stock Market",
+    "Commodity",
+    "MCX",
+    "NSE",
+    "BSE",
+    "Portfolio",
+    "Risk Management",
+    "Desktop Application"
+]
+
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Environment :: Win32 (MS Windows)",
+    "Intended Audience :: Financial and Insurance Industry",
+    "License :: Other/Proprietary License",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Office/Business :: Financial"
+]
+
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/rskajla3011/tradepilot-OS"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.pytest.ini_options]
+pythonpath = [
+    ".",
+    "src"
+]
+
+testpaths = [
+    "tests"
+]
+
+[tool.black]
+line-length = 100
+target-version = ["py313"]
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.coverage.run]
+source = [
+    "src"
+]
+
+branch = true
