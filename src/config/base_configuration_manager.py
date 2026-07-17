@@ -34,6 +34,7 @@ from src.config.configuration_migration_manager import (
 )
 from src.shared.serialization.json_storage import JsonStorage
 from src.shared.validation.config_validator import ConfigValidator
+from src.shared.utilities.deep_merge import deep_merge_dict
 
 
 class BaseConfigurationManager(ABC):
@@ -365,15 +366,21 @@ class BaseConfigurationManager(ABC):
 
         return True
 
-    def update(self, values: dict[str, Any]) -> None:
+    def update(
+            self,
+            values: dict[str, Any],
+    ) -> None:
         """
-        Update multiple top-level configuration values.
+        Recursively update configuration values.
         """
 
         if not values:
             return
 
-        self._data.update(values)
+        self._data = deep_merge_dict(
+            self._data,
+            values,
+        )
 
         self._mark_dirty()
 
