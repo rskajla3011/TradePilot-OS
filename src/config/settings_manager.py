@@ -1,12 +1,19 @@
-\
 """
+===============================================================================
 TradePilot OS
 
-File:
+Module:
     settings_manager.py
 
-Purpose:
-    Manages user-specific settings.
+Description:
+    User settings manager.
+
+Responsibilities:
+    • Provide user settings
+    • Supply default settings
+    • Configure dependency injection
+
+===============================================================================
 """
 
 from __future__ import annotations
@@ -14,47 +21,70 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from src.config.default_settings import DEFAULT_USER_SETTINGS
+from src.config.base_configuration_manager import BaseConfigurationManager
+from src.config.configuration_migration_manager import (
+    ConfigurationMigrationManager,
+)
+from src.config.default_settings import (
+    get_default_user_settings,
+)
+from src.config.migrations.registry import (
+    build_migration_manager,
+)
 from src.shared.serialization.json_storage import JsonStorage
 from src.shared.validation.config_validator import ConfigValidator
 
 
-class SettingsManager:
-    """Manages user settings stored in a JSON file."""
+class SettingsManager(BaseConfigurationManager):
+    """
+    User settings manager.
+    """
 
-    def __init__(self, settings_path: Path) -> None:
-        self._storage = JsonStorage(settings_path)
-        self._settings: dict[str, Any] = {}
+    def __init__(
+        self,
+        settings_file: Path,
+        migration_manager: ConfigurationMigrationManager | None = None,
+    ) -> None:
+
+        storage = JsonStorage(settings_file)
+
+        validator = ConfigValidator()
+
+        migration_manager = (
+            migration_manager
+            if migration_manager is not None
+            else build_migration_manager()
+        )
+
+        super().__init__(
+            storage=storage,
+            validator=validator,
+            migration_manager=migration_manager,
+        )
+
+    # ------------------------------------------------------------------
+    # Default configuration
+    # ------------------------------------------------------------------
+
+    def get_default_data(self) -> dict[str, Any]:
+        """
+        Return user default settings.
+        """
+
+        return get_default_user_settings()
+
+    # ------------------------------------------------------------------
+    # Compatibility API
+    # ------------------------------------------------------------------
 
     @property
     def settings(self) -> dict[str, Any]:
-        return self._settings
+        """
+        Backward compatibility.
 
-    def load(self) -> dict[str, Any]:
-        """Load settings or create defaults if missing."""
-        if not self._storage.exists():
-            self._settings = DEFAULT_USER_SETTINGS.copy()
-            self.save()
-            return self._settings
+        Existing code can continue using:
 
-        self._settings = self._storage.load()
-        ConfigValidator.validate_root(self._settings)
-        return self._settings
+            manager.settings
+        """
 
-    def save(self) -> None:
-        """Save settings to disk."""
-        ConfigValidator.validate_root(self._settings)
-        self._storage.save(self._settings)
-
-    def get(self, key: str, default: Any = None) -> Any:
-        """Return a top-level setting."""
-        return self._settings.get(key, default)
-
-    def set(self, key: str, value: Any) -> None:
-        """Update a top-level setting."""
-        self._settings[key] = value
-
-    def reset_to_defaults(self) -> None:
-        """Restore default user settings."""
-        self._settings = DEFAULT_USER_SETTINGS.copy()
-        self.save()
+        return self.data

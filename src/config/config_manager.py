@@ -1,12 +1,19 @@
-\
 """
+===============================================================================
 TradePilot OS
 
-File:
+Module:
     config_manager.py
 
-Purpose:
-    Central configuration manager for application configuration.
+Description:
+    Application configuration manager.
+
+Responsibilities:
+    • Provide application configuration
+    • Supply default configuration
+    • Configure dependency injection
+
+===============================================================================
 """
 
 from __future__ import annotations
@@ -14,47 +21,70 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from src.config.default_settings import DEFAULT_APPLICATION_SETTINGS
+from src.config.base_configuration_manager import BaseConfigurationManager
+from src.config.configuration_migration_manager import (
+    ConfigurationMigrationManager,
+)
+from src.config.default_settings import (
+    get_default_application_settings,
+)
+from src.config.migrations.registry import (
+    build_migration_manager,
+)
 from src.shared.serialization.json_storage import JsonStorage
 from src.shared.validation.config_validator import ConfigValidator
 
 
-class ConfigManager:
-    """Manages the application configuration file."""
+class ConfigManager(BaseConfigurationManager):
+    """
+    Application configuration manager.
+    """
 
-    def __init__(self, config_path: Path) -> None:
-        self._storage = JsonStorage(config_path)
-        self._config: dict[str, Any] = {}
+    def __init__(
+        self,
+        config_file: Path,
+        migration_manager: ConfigurationMigrationManager | None = None,
+    ) -> None:
+
+        storage = JsonStorage(config_file)
+
+        validator = ConfigValidator()
+
+        migration_manager = (
+            migration_manager
+            if migration_manager is not None
+            else build_migration_manager()
+        )
+
+        super().__init__(
+            storage=storage,
+            validator=validator,
+            migration_manager=migration_manager,
+        )
+
+    # ------------------------------------------------------------------
+    # Default configuration
+    # ------------------------------------------------------------------
+
+    def get_default_data(self) -> dict[str, Any]:
+        """
+        Return application default configuration.
+        """
+
+        return get_default_application_settings()
+
+    # ------------------------------------------------------------------
+    # Compatibility API
+    # ------------------------------------------------------------------
 
     @property
     def config(self) -> dict[str, Any]:
-        return self._config
+        """
+        Backward compatibility.
 
-    def load(self) -> dict[str, Any]:
-        """Load the configuration, creating defaults if necessary."""
-        if not self._storage.exists():
-            self._config = DEFAULT_APPLICATION_SETTINGS.copy()
-            self.save()
-            return self._config
+        Existing code can continue using:
 
-        self._config = self._storage.load()
-        ConfigValidator.validate_root(self._config)
-        return self._config
+            manager.config
+        """
 
-    def save(self) -> None:
-        """Persist the current configuration."""
-        ConfigValidator.validate_root(self._config)
-        self._storage.save(self._config)
-
-    def get(self, key: str, default: Any = None) -> Any:
-        """Get a top-level configuration value."""
-        return self._config.get(key, default)
-
-    def set(self, key: str, value: Any) -> None:
-        """Set a top-level configuration value."""
-        self._config[key] = value
-
-    def reset_to_defaults(self) -> None:
-        """Reset configuration to application defaults."""
-        self._config = DEFAULT_APPLICATION_SETTINGS.copy()
-        self.save()
+        return self.data
